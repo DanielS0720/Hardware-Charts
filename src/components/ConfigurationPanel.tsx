@@ -1,6 +1,6 @@
 import React from 'react';
 import { useChartContext } from '../context/ChartContext';
-import type { ChartMode, ChartOrientation, ColorScheme } from '../types';
+import type { ChartMode, ChartOrientation, ChartTheme, ColorScheme } from '../types';
 
 export const ConfigurationPanel: React.FC = () => {
   const { state, updateConfig } = useChartContext();
@@ -46,6 +46,19 @@ export const ConfigurationPanel: React.FC = () => {
           >
             <option value="bar">Barras (Comparación)</option>
             <option value="line">Líneas (Análisis Térmico)</option>
+            <option value="lineXY">Líneas X-Y (Normalizado)</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="text-sm font-medium text-slate-600">Tema</label>
+          <select
+            value={config.theme}
+            onChange={e => updateConfig('theme', e.target.value as ChartTheme)}
+            className="border border-slate-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#03D6B3]"
+          >
+            <option value="light">Claro</option>
+            <option value="dark">Oscuro</option>
           </select>
         </div>
 
@@ -86,6 +99,18 @@ export const ConfigurationPanel: React.FC = () => {
             Mostrar valores sobre las barras
           </label>
         )}
+
+        {config.mode === 'lineXY' && (
+          <label className="flex items-center gap-2 text-sm font-medium text-slate-600 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={config.showSeriesLabels}
+              onChange={e => updateConfig('showSeriesLabels', e.target.checked)}
+              className="accent-[#03D6B3] w-4 h-4"
+            />
+            Nombres de serie al inicio de línea
+          </label>
+        )}
       </div>
 
       {/* Units & Axes */}
@@ -118,6 +143,8 @@ export const ConfigurationPanel: React.FC = () => {
             <option value="None">None</option>
             <option value="Segundos">Segundos</option>
             <option value="FPS">FPS</option>
+            <option value="dbA">dbA</option>
+            <option value="Watts">Watts</option>
             <option value="%">%</option>
           </select>
         </div>

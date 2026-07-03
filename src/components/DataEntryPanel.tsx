@@ -36,7 +36,8 @@ export const DataEntryPanel: React.FC = () => {
     state, importData, updateRowLabel, updateRowValue,
     addRow, removeRow, addSeries, removeSeries, renameSeries
   } = useChartContext();
-  const { data } = state;
+  const { data, config } = state;
+  const isXY = config.mode === 'lineXY';
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,6 +147,12 @@ export const DataEntryPanel: React.FC = () => {
 
       {/* Manual Data Table */}
       <div className="flex-1 overflow-y-auto p-6 pt-2">
+        {isXY && (
+          <p className="text-xs text-slate-400 mb-2">
+            Modo X-Y: la primera columna es el valor numérico de X (ej. dbA).
+            Celda vacía = la serie no tiene punto en esa X.
+          </p>
+        )}
         <div className="flex justify-between items-center mb-3">
           <h3 className="text-sm font-semibold text-slate-700">Editor Manual</h3>
           <button
@@ -162,7 +169,7 @@ export const DataEntryPanel: React.FC = () => {
             className="grid gap-2 items-center bg-slate-100 p-2 rounded text-xs font-semibold text-slate-600"
             style={tableGrid}
           >
-            <div className="truncate">Etiqueta</div>
+            <div className="truncate">{isXY ? 'X (numérico)' : 'Etiqueta'}</div>
             {data.series.map(s => (
               <div key={s.id} className="truncate" title={s.name}>{s.name}</div>
             ))}

@@ -1,6 +1,7 @@
-export type ChartMode = 'bar' | 'line';
+export type ChartMode = 'bar' | 'line' | 'lineXY';
 export type ChartOrientation = 'horizontal' | 'vertical';
 export type ColorScheme = 'default' | 'ssd';
+export type ChartTheme = 'light' | 'dark';
 
 export interface ChartConfig {
   title: string;
@@ -12,6 +13,9 @@ export interface ChartConfig {
   mode: ChartMode;
   orientation: ChartOrientation;
   showValues: boolean;
+  // lineXY mode: draw each series name next to its first point
+  showSeriesLabels: boolean;
+  theme: ChartTheme;
   colorScheme: ColorScheme;
 }
 

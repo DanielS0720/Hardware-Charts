@@ -26,6 +26,8 @@ const defaultState: AppState = {
     mode: 'bar',
     orientation: 'horizontal',
     showValues: true,
+    showSeriesLabels: true,
+    theme: 'light',
     colorScheme: 'default'
   },
   data: {
