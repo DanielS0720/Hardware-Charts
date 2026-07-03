@@ -1,73 +1,31 @@
-# React + TypeScript + Vite
+# Hardware Charts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Herramienta web para generar gráficas de rendimiento de hardware (benchmarks, temperaturas, ruido, consumo) listas para exportar como imagen o video.
 
-Currently, two official plugins are available:
+## Funcionalidad
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Modos de gráfica**: barras (comparación), líneas (análisis térmico) y líneas X-Y (datos normalizados por ruido, ej. temperatura vs dBA).
+- **Series múltiples**: cada serie con su propio color, y eje Y secundario opcional en modo línea (2 series).
+- **Temas**: claro y oscuro, con paletas de color adaptadas a cada uno.
+- **Entrada de datos**: edición manual en tabla o importación por CSV.
+- **Personalización**: título, unidades de eje X/Y, orientación de barras (horizontal/vertical), etiquetas de valor sobre las barras, nombres de serie al inicio de línea.
+- **Exportación**: descarga la gráfica como imagen PNG en alta resolución, o graba un video de la animación de entrada de datos.
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite
+- Chart.js / react-chartjs-2
+- Tailwind CSS
+- PapaParse (CSV)
+- html-to-image (exportación de imágenes)
 
-## Expanding the ESLint configuration
+## Desarrollo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # servidor de desarrollo
+npm run build    # build de producción
+npm run lint      # eslint
+npm run preview   # preview del build
 ```
